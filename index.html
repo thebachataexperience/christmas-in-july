@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christmas in July — The Bachata Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1B38E8;
+      --blue-dark: #1228C0;
+      --blue-tint: #BDD0FF;
+      --white: #FFFFFF;
+      --near-black: #111111;
+      --charcoal: #444444;
+      --light-gray: #E8E8E8;
+      --mid-gray: #AAAAAA;
+      --gold: #D4A017;
+      --gold-light: #F5E6A3;
+      --xmas-red: #C0392B;
+      --xmas-red-light: #E74C3C;
+      --xmas-green: #1a5c2a;
+      --xmas-green-light: #27ae60;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--near-black);
+      line-height: 1.6;
+      padding-bottom: 70px;
+    }
+
+    /* ── SNOWFALL ── */
+    .snowfall {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .snowflake {
+      position: absolute;
+      top: -20px;
+      color: rgba(189,208,255,0.6);
+      animation: fall linear infinite;
+      user-select: none;
+    }
+    @keyframes fall {
+      to { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── CHRISTMAS LIGHTS ── */
+    .lights-bar {
+      background: var(--near-black);
+      padding: 6px 0 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 20;
+    }
+    .lights-wire {
+      width: 100%;
+      height: 4px;
+      background: #222;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 8px;
+    }
+    .light-bulb {
+      display: inline-block;
+      width: 10px;
+      height: 14px;
+      border-radius: 50% 50% 45% 45%;
+      margin: 0 14px;
+      position: relative;
+      top: 4px;
+      animation: flicker 2s ease-in-out infinite alternate;
+      flex-shrink: 0;
+    }
+    .light-bulb::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 4px;
+      background: #555;
+      border-radius: 2px 2px 0 0;
+      margin: -4px auto 0;
+    }
+    .lb-r { background: var(--xmas-red); box-shadow: 0 0 6px 2px rgba(192,57,43,0.7); animation-delay: 0s; }
+    .lb-g { background: var(--xmas-green-light); box-shadow: 0 0 6px 2px rgba(39,174,96,0.7); animation-delay: 0.3s; }
+    .lb-y { background: var(--gold); box-shadow: 0 0 6px 2px rgba(212,160,23,0.7); animation-delay: 0.6s; }
+    .lb-b { background: var(--blue-tint); box-shadow: 0 0 6px 2px rgba(189,208,255,0.7); animation-delay: 0.9s; }
+    @keyframes flicker {
+      0%   { opacity: 1; }
+      85%  { opacity: 1; }
+      90%  { opacity: 0.4; }
+      95%  { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--blue);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+    .logo-circle {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: 2px solid var(--mid-gray);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .logo-top {
+      background: var(--light-gray);
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 10px;
+      color: var(--blue); letter-spacing: 0.05em;
+    }
+    .logo-bottom {
+      background: var(--blue);
+      flex: 1.4;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 7px;
+      color: var(--white); letter-spacing: 0.04em;
+      text-align: center; line-height: 1.2; padding: 2px;
+    }
+    .header-text { margin-left: 14px; color: var(--white); }
+    .header-text .studio-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.1rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .header-text .tagline {
+      font-size: 0.7rem; color: var(--blue-tint);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #0f1f8a 0%, var(--blue) 50%, #1a2fa0 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 52px 24px 90px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Stars background */
+    .hero::before {
+      content: '★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★';
+      position: absolute;
+      top: 12px; left: 0; right: 0;
+      font-size: 0.5rem;
+      letter-spacing: 18px;
+      color: rgba(255,255,255,0.12);
+      pointer-events: none;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .hero-tree {
+      font-size: 3.5rem;
+      margin-bottom: 8px;
+      display: block;
+      animation: sway 4s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    @keyframes sway {
+      0%,100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 14px;
+    }
+    .hero-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 13vw, 6.5rem);
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .hero-headline .in-july {
+      color: var(--gold-light);
+      display: block;
+    }
+    .hero-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 4px;
+    }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--blue-tint);
+      margin: 12px auto 28px; max-width: 400px;
+    }
+
+    /* Ribbon accent */
+    .hero-ribbon {
+      display: inline-block;
+      background: var(--xmas-red);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 20px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .hero-ribbon::before,
+    .hero-ribbon::after {
+      content: '🎀';
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      font-size: 0.9rem;
+    }
+    .hero-ribbon::before { left: -22px; }
+    .hero-ribbon::after  { right: -22px; }
+
+    .countdown-bar {
+      display: inline-flex; gap: 16px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 14px 24px;
+      margin-bottom: 32px;
+    }
+    .countdown-unit { text-align: center; }
+    .countdown-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 2.2rem;
+      line-height: 1; color: var(--white); display: block;
+    }
+    .countdown-label {
+      font-size: 0.55rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue-tint);
+    }
+    .countdown-divider {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem; color: rgba(255,255,255,0.25);
+      align-self: center; padding-bottom: 8px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--near-black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.15rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 44px;
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(212,160,23,0.4);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .hero-cta:hover { background: #b8880f; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,160,23,0.5); }
+    .hero-deadline {
+      margin-top: 14px; font-size: 0.72rem;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.06em;
+    }
+
+    /* Decorative holly corners */
+    .holly-left, .holly-right {
+      position: absolute; bottom: 24px;
+      font-size: 2rem; opacity: 0.25; pointer-events: none;
+    }
+    .holly-left { left: 20px; }
+    .holly-right { right: 20px; transform: scaleX(-1); }
+
+    /* ── WAVE ── */
+    .wave { display: block; width: 100%; margin-top: -2px; }
+
+    /* ── WHO SECTION ── */
+    .who-section {
+      background: #f8f9ff;
+      border-top: 3px solid var(--xmas-red);
+      padding: 40px 24px;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .who-section p {
+      max-width: 560px; margin: 0 auto;
+      font-size: 1rem; color: var(--charcoal); line-height: 1.75;
+    }
+    .who-section p strong { color: var(--near-black); }
+
+    /* ── OFFERS SECTION ── */
+    .offers-section {
+      padding: 64px 24px;
+      max-width: 800px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .section-eyebrow {
+      text-align: center; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--xmas-red); margin-bottom: 6px;
+    }
+    .section-title {
+      text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      text-transform: uppercase; margin-bottom: 48px;
+      color: var(--near-black);
+    }
+
+    /* Gift ribbon top on cards */
+    .offer-card {
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .offer-card::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, var(--xmas-red) 0%, var(--gold) 50%, var(--xmas-red) 100%);
+    }
+    .offer-card:hover {
+      box-shadow: 0 8px 32px rgba(27,56,232,0.12);
+      transform: translateY(-2px);
+    }
+    .offer-card.featured {
+      border: 2px solid var(--near-black);
+    }
+    .offer-card.featured::before {
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--xmas-red) 33%, var(--gold) 66%, var(--xmas-red) 100%);
+    }
+
+    /* Bow decoration on featured */
+    .offer-bow {
+      position: absolute;
+      top: -2px; right: 20px;
+      font-size: 1.4rem;
+      z-index: 2;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .offer-header {
+      background: var(--blue);
+      padding: 20px 24px 16px;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px;
+    }
+    .offer-card.featured .offer-header { background: var(--near-black); }
+
+    .offer-tag {
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue-tint); margin-bottom: 4px;
+    }
+    .offer-card.featured .offer-tag { color: var(--gold-light); }
+
+    .offer-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.5rem;
+      text-transform: uppercase; color: var(--white); line-height: 1.1;
+    }
+
+    .offer-badge {
+      background: var(--xmas-red);
+      color: var(--white);
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0;
+      align-self: flex-start; margin-top: 4px;
+    }
+    .offer-card.featured .offer-badge { background: var(--gold); color: var(--near-black); }
+
+    .offer-body { padding: 24px; }
+
+    .offer-who {
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 8px;
+    }
+    .offer-desc {
+      font-size: 0.93rem; color: var(--charcoal);
+      line-height: 1.65; margin-bottom: 18px;
+    }
+
+    .offer-pricing {
+      display: flex; align-items: baseline;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .offer-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 2rem; color: var(--blue);
+    }
+    .offer-card.featured .offer-price { color: var(--near-black); }
+    .offer-reg { font-size: 0.85rem; color: var(--mid-gray); text-decoration: line-through; }
+    .offer-savings {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--xmas-red); background: #fdecea;
+      padding: 2px 8px; border-radius: 20px;
+    }
+
+    .offer-pricing-split {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .price-option {
+      flex: 1; min-width: 130px;
+      background: var(--light-gray);
+      border-radius: 6px; padding: 12px 16px;
+    }
+    .price-option-label {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--charcoal); margin-bottom: 4px;
+    }
+    .price-option-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.6rem; color: var(--blue);
+    }
+    .price-option-reg { font-size: 0.72rem; color: var(--mid-gray); text-decoration: line-through; }
+
+    .offer-includes { list-style: none; margin-bottom: 18px; }
+    .offer-includes li {
+      font-size: 0.88rem; color: var(--charcoal);
+      padding: 4px 0; display: flex; align-items: flex-start; gap: 8px;
+    }
+    .offer-includes li::before {
+      content: '🎁'; font-size: 0.75rem; flex-shrink: 0; margin-top: 2px;
+    }
+
+    .offer-cta {
+      display: block; width: 100%; text-align: center;
+      background: var(--blue); color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; padding: 14px 24px;
+      border-radius: 4px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .offer-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .offer-card.featured .offer-cta { background: var(--gold); color: var(--near-black); }
+    .offer-card.featured .offer-cta:hover { background: #b8880f; }
+
+    .limited-notice {
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 12px; font-size: 0.78rem; color: var(--charcoal);
+    }
+    .limited-dot {
+      width: 6px; height: 6px;
+      background: var(--xmas-red);
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+    /* ── ELF BUDDY ── */
+    .elf-section {
+      background: #f0f4ff;
+      border-top: 3px dashed var(--xmas-green-light);
+      border-bottom: 3px dashed var(--xmas-green-light);
+      padding: 52px 24px;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .elf-section::before {
+      content: '🎄';
+      position: absolute; left: 20px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem; opacity: 0.15;
+    }
+    .elf-section::after {
+      content: '🎄';
+      position: absolute; right: 20px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem; opacity: 0.15;
+    }
+    .elf-inner { max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
+    .elf-icon { font-size: 2.8rem; margin-bottom: 10px; }
+    .elf-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.9rem;
+      text-transform: uppercase; color: var(--near-black); margin-bottom: 12px;
+    }
+    .elf-desc {
+      font-size: 0.93rem; color: var(--charcoal);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .elf-deal {
+      display: inline-flex; gap: 24px;
+      background: var(--white);
+      border: 2px solid var(--xmas-green-light);
+      border-radius: 8px; padding: 18px 32px; margin-bottom: 16px;
+    }
+    .elf-deal-item { text-align: center; }
+    .elf-deal-amount {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.9rem;
+      color: var(--xmas-green); display: block;
+    }
+    .elf-deal-who {
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--charcoal);
+    }
+    .elf-divider { font-size: 1.5rem; color: var(--mid-gray); align-self: center; }
+    .elf-note { font-size: 0.78rem; color: var(--mid-gray); }
+
+    /* ── FESTIVE BANNER ── */
+    .festive-banner {
+      background: var(--xmas-red);
+      padding: 14px 24px;
+      text-align: center;
+      position: relative; z-index: 1;
+      overflow: hidden;
+    }
+    .festive-banner-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--white);
+      display: flex; align-items: center;
+      justify-content: center; gap: 16px; flex-wrap: wrap;
+    }
+    .festive-banner-text span { opacity: 0.6; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--near-black);
+      color: var(--white);
+      text-align: center;
+      padding: 52px 24px;
+      position: relative; z-index: 1;
+    }
+    .footer-tree-row {
+      font-size: 1.4rem; margin-bottom: 20px;
+      letter-spacing: 8px; opacity: 0.3;
+    }
+    .footer-deadline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.6rem;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .footer-deadline span { color: var(--gold-light); }
+    .footer-sub { font-size: 0.83rem; color: var(--mid-gray); margin-bottom: 28px; }
+    .footer-links {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 20px; margin-bottom: 28px;
+    }
+    .footer-links a { color: var(--blue-tint); font-size: 0.83rem; text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-divider { border: none; border-top: 1px solid #333; margin: 20px auto; max-width: 400px; }
+    .footer-copy { font-size: 0.72rem; color: #444; }
+
+    /* ── STICKY BAR ── */
+    .sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--near-black);
+      border-top: 3px solid var(--xmas-red);
+      padding: 10px 20px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    }
+    .sticky-text { font-size: 0.78rem; color: var(--mid-gray); line-height: 1.3; }
+    .sticky-text strong { display: block; color: var(--white); font-size: 0.88rem; }
+    .sticky-cta {
+      background: var(--xmas-red);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; padding: 10px 20px;
+      border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .sticky-cta:hover { background: var(--xmas-red-light); }
+
+    @media (max-width: 480px) {
+      .countdown-bar { gap: 10px; padding: 12px 14px; }
+      .countdown-number { font-size: 1.6rem; }
+      .offer-pricing-split { flex-direction: column; }
+      .elf-deal { gap: 16px; padding: 14px 20px; }
+      .holly-left, .holly-right { display: none; }
+      .hero-ribbon::before, .hero-ribbon::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="snowfall" id="snowfall"></div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <div class="sticky-text">
+    <strong>🎄 Christmas in July Sale</strong>
+    July 21–26 only · No exceptions
+  </div>
+  <a href="#offers" class="sticky-cta">🎁 See Offers</a>
+</div>
+
+<!-- CHRISTMAS LIGHTS -->
+<div class="lights-bar">
+  <div class="lights-wire" id="lights"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-circle">
+    <div class="logo-top">THE</div>
+    <div class="logo-bottom">BACHATA EXPERIENCE</div>
+  </div>
+  <div class="header-text">
+    <div class="studio-name">The Bachata Experience</div>
+    <div class="tagline">Bridgeport, CT · thebachataexperience.com</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-tree">🎄</span>
+  <div class="hero-eyebrow">🎁 Limited Time · July 21–26 Only · Bridgeport, CT</div>
+  <h1 class="hero-headline">
+    Christmas
+    <span class="in-july">in July</span>
+  </h1>
+  <div class="hero-tagline">at The Bachata Experience</div>
+  <div class="hero-ribbon">Our biggest sale ever</div>
+  <p class="hero-sub">Five offers. Six days only. No extensions. No excuses.</p>
+
+  <div class="countdown-bar">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-divider">:</div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-divider">:</div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="mins">--</span>
+      <span class="countdown-label">Mins</span>
+    </div>
+    <div class="countdown-divider">:</div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="secs">--</span>
+      <span class="countdown-label">Secs</span>
+    </div>
+  </div>
+
+  <a href="#offers" class="hero-cta">🎁 Unwrap Your Offer</a>
+  <p class="hero-deadline">Sale ends midnight, July 26 · No exceptions</p>
+
+  <div class="holly-left">🌿❄️</div>
+  <div class="holly-right">🌿❄️</div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0 0 Q360 40 720 20 Q1080 0 1440 30 L1440 0 Z" fill="#1a2fa0"/>
+</svg>
+
+<!-- WHO SECTION -->
+<section class="who-section">
+  <p>Whether you've been meaning to start for months, want more flexibility in your schedule, need focused one-on-one time, or you're ready to make bachata a real part of your life this year — <strong>there's something in this sale for exactly where you are right now.</strong></p>
+</section>
+
+<!-- OFFERS -->
+<section class="offers-section" id="offers">
+  <div class="section-eyebrow">🎁 Five Offers · July 21–26 Only</div>
+  <h2 class="section-title">What's Under the Tree</h2>
+
+  <!-- OFFER 1 -->
+  <div class="offer-card">
+    <div class="offer-header">
+      <div>
+        <div class="offer-tag">🎄 For Beginners</div>
+        <div class="offer-name">Start Strong Bundle</div>
+      </div>
+      <div class="offer-badge">Save $60</div>
+    </div>
+    <div class="offer-body">
+      <div class="offer-who">Been meaning to start? This is the one.</div>
+      <p class="offer-desc">Six weeks of Intro Bootcamp to learn the steps. Then your first full month of Foundations included — so when the bootcamp ends, you don't drift. You keep going. Most beginners fall off between those two stages. This bundle closes that gap on purpose.</p>
+      <ul class="offer-includes">
+        <li>6-week Intro Bootcamp — beginners welcome, no partner needed</li>
+        <li>First month of Bachata Foundations included</li>
+        <li>12 weeks of real instruction, one purchase</li>
+      </ul>
+      <div class="offer-pricing">
+        <span class="offer-price">$180</span>
+        <span class="offer-reg">reg $240</span>
+        <span class="offer-savings">25% off</span>
+      </div>
+      <a href="https://thebachataexperience.com" class="offer-cta">Claim This Offer →</a>
+    </div>
+  </div>
+
+  <!-- OFFER 2 -->
+  <div class="offer-card">
+    <div class="offer-header">
+      <div>
+        <div class="offer-tag">🎄 For Flexible Schedules</div>
+        <div class="offer-name">12-Class Bundle</div>
+      </div>
+      <div class="offer-badge">Save $80</div>
+    </div>
+    <div class="offer-body">
+      <div class="offer-who">Already dancing and want to show up on your terms?</div>
+      <p class="offer-desc">Twelve drop-in classes in your pocket. No set schedule. No pressure to pick a specific day and hope your week cooperates. Show up when life allows — and actually build momentum instead of losing it. Buy it for yourself or give it to the person who keeps saying "maybe someday."</p>
+      <ul class="offer-includes">
+        <li>12 drop-in classes, any session</li>
+        <li>Valid for 3 months from purchase</li>
+        <li>Works as a gift — transferable</li>
+      </ul>
+      <div class="offer-pricing">
+        <span class="offer-price">$220</span>
+        <span class="offer-reg">reg $300</span>
+        <span class="offer-savings">Save $80</span>
+      </div>
+      <a href="https://thebachataexperience.com" class="offer-cta">Claim This Offer →</a>
+    </div>
+  </div>
+
+  <!-- OFFER 3 -->
+  <div class="offer-card">
+    <div class="offer-header">
+      <div>
+        <div class="offer-tag">🎄 Private Lessons · 15% Off</div>
+        <div class="offer-name">Wish List Sessions</div>
+      </div>
+      <div class="offer-badge">15% Off</div>
+    </div>
+    <div class="offer-body">
+      <div class="offer-who">Something isn't clicking and you know exactly what it is.</div>
+      <p class="offer-desc">One hour, just you, working on the specific thing that lives rent-free in your head every time you leave class. We go at your pace, look at exactly what you need, and you leave with something concrete. The single session is a gift to yourself. The 5-pack is for when you're done plateauing.</p>
+      <div class="offer-pricing-split">
+        <div class="price-option">
+          <div class="price-option-label">Single Session</div>
+          <div class="price-option-price">$51</div>
+          <div class="price-option-reg">reg $60</div>
+        </div>
+        <div class="price-option">
+          <div class="price-option-label">5-Session Pack</div>
+          <div class="price-option-price">$255</div>
+          <div class="price-option-reg">reg $300 · save $45</div>
+        </div>
+      </div>
+      <a href="https://thebachataexperience.com" class="offer-cta">Book a Session →</a>
+    </div>
+  </div>
+
+  <!-- OFFER 4: FEATURED -->
+  <div class="offer-card featured">
+    <div class="offer-bow">🎀</div>
+    <div class="offer-header">
+      <div>
+        <div class="offer-tag">⭐ Most Valuable · Limited Spots</div>
+        <div class="offer-name">All Access Pass</div>
+      </div>
+      <div class="offer-badge">64% Off</div>
+    </div>
+    <div class="offer-body">
+      <div class="offer-who">Tired of being almost committed? This is going all in.</div>
+      <p class="offer-desc">One payment. One full year. No more "I'll get serious about it eventually." Everything The Bachata Experience offers — yours for 12 months straight.</p>
+      <ul class="offer-includes">
+        <li>Unlimited classes for a full year</li>
+        <li>Free entry to every Café con Bachata social</li>
+        <li>One private lesson every month — 12 total</li>
+        <li>Over $2,200 in value</li>
+      </ul>
+      <div class="offer-pricing">
+        <span class="offer-price">$800</span>
+        <span class="offer-reg">$2,200+ value</span>
+      </div>
+      <a href="https://thebachataexperience.com" class="offer-cta">Grab Your Pass →</a>
+      <div class="limited-notice">
+        <div class="limited-dot"></div>
+        Limited spots available — when they're gone, they're gone until next year
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ELF BUDDY PASS -->
+<section class="elf-section">
+  <div class="elf-inner">
+    <div class="elf-icon">🧝🎄</div>
+    <h2 class="elf-title">The Elf Buddy Pass</h2>
+    <p class="elf-desc">You've been texting someone "you should just come" for longer than you want to admit. Stop describing it. Bring them. Mention your name when they sign up — you both save. That's it.</p>
+    <div class="elf-deal">
+      <div class="elf-deal-item">
+        <span class="elf-deal-amount">$5 off</span>
+        <span class="elf-deal-who">For you</span>
+      </div>
+      <div class="elf-divider">+</div>
+      <div class="elf-deal-item">
+        <span class="elf-deal-amount">$5 off</span>
+        <span class="elf-deal-who">For your guest</span>
+      </div>
+    </div>
+    <p class="elf-note">Just mention your name when they sign up. No codes, no forms, no hoops.<br>Bachata is better when you walk in with someone you know.</p>
+  </div>
+</section>
+
+<!-- FESTIVE BANNER -->
+<div class="festive-banner">
+  <div class="festive-banner-text">
+    🎅 <span>·</span> July 21–26 only <span>·</span> 🎁 <span>·</span> Bridgeport, CT <span>·</span> 🎄 <span>·</span> thebachataexperience.com <span>·</span> ☃️
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-tree-row">🎄 🎄 🎄 🎄 🎄</div>
+  <div class="footer-deadline">Sale ends <span>July 26th</span> at midnight.</div>
+  <p class="footer-sub">Six days only. No extensions. No exceptions. These prices don't come back until next year.</p>
+  <div class="footer-links">
+    <a href="https://thebachataexperience.com">thebachataexperience.com</a>
+    <a href="https://instagram.com/thebachataexperience">@thebachataexperience</a>
+    <a href="mailto:support@thebachataexperience.com">support@thebachataexperience.com</a>
+    <a href="tel:4752391045">(475) 239-1045</a>
+  </div>
+  <hr class="footer-divider" />
+  <p class="footer-copy">© 2025 The Bachata Experience · 40 Fairfield Ave, Floor 2, Bridgeport, CT 06604</p>
+</footer>
+
+<script>
+  // SNOWFALL — denser
+  const snowfall = document.getElementById('snowfall');
+  const flakes = ['❄','❅','❆','✦','·','*'];
+  for (let i = 0; i < 55; i++) {
+    const f = document.createElement('div');
+    f.className = 'snowflake';
+    f.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+    f.style.left = Math.random() * 100 + 'vw';
+    f.style.fontSize = (0.5 + Math.random() * 1.3) + 'em';
+    f.style.animationDuration = (7 + Math.random() * 12) + 's';
+    f.style.animationDelay = (Math.random() * 10) + 's';
+    f.style.opacity = (0.15 + Math.random() * 0.45);
+    snowfall.appendChild(f);
+  }
+
+  // CHRISTMAS LIGHTS
+  const lightsEl = document.getElementById('lights');
+  const colors = ['lb-r','lb-g','lb-y','lb-b'];
+  const count = Math.ceil(window.innerWidth / 38);
+  for (let i = 0; i < count; i++) {
+    const b = document.createElement('div');
+    b.className = 'light-bulb ' + colors[i % colors.length];
+    lightsEl.appendChild(b);
+  }
+
+  // COUNTDOWN to July 31 2025
+  function updateCountdown() {
+    const end = new Date('2025-07-27T00:00:00');
+    const now = new Date();
+    const diff = end - now;
+    if (diff <= 0) {
+      ['days','hours','mins','secs'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    document.getElementById('days').textContent  = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('mins').textContent  = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('secs').textContent  = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
